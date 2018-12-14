@@ -1,14 +1,23 @@
-package main;
+package main.generator;
 
 import javax.tools.*;
 import java.io.File;
 import java.io.FileWriter;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Arrays;
 
-public class ClassGenerator {
+public class ReflectionClassGenerator {
+
+    private String interfaces;
+    private String returnedType;
+    private String params;
+
+    public ReflectionClassGenerator(String interfaces, String returnedType, String params) {
+        this.interfaces = interfaces;
+        this.returnedType = returnedType;
+        this.params = params;
+    }
 
     public Expression generate(String expression) throws Exception {
         try {
@@ -18,9 +27,8 @@ public class ClassGenerator {
 
             // generate the source code, using the source filename as the class name
             String classname = sourceFile.getName().split("\\.")[0];
-            String sourceCode = "public class " + classname + " implements main.Expression { public double calc(double... args) {return "+ expression +";}}";
+            String sourceCode = "public class " + classname + " implements " + this.interfaces + " { public " + this.returnedType +" calc(" + this.params + ") {return "+ expression +";}}";
 
-            // write the source code into the source file
             FileWriter writer = new FileWriter(sourceFile);
             writer.write(sourceCode);
             writer.close();

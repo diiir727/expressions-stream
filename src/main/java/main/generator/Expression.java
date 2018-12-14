@@ -1,4 +1,4 @@
-package main;
+package main.generator;
 
 public interface Expression {
 

@@ -1,4 +1,4 @@
-package main.fileob;
+package main;
 
 import main.observer.Observable;
 import main.observer.Observer;
