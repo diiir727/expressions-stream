@@ -1,4 +1,5 @@
-import main.*;
+package main;
+
 import main.generator.ReflectionClassGenerator;
 import main.observer.Observable;
 import main.observer.ObservableFile;
