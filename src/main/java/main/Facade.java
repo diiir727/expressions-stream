@@ -31,14 +31,18 @@ public class Facade implements Observer {
         NumberGenerator generator = new NumberGenerator(2);
         while(true) {
             double[] ar = generator.generate();
-            for (Expression exp: calcExpressions.get()){
-                try {
-                    this.resultWriter.write(exp.getFunction(), exp.calc(ar), ar);
-                } catch (Exception e) {
-                    logger.warn("Expression calc error: ", e);
-                }
-            }
+            for (Expression exp: calcExpressions.get())
+                tryCalc(ar, exp);
+
             trySleep();
+        }
+    }
+
+    private void tryCalc(double[] ar, Expression exp){
+        try {
+            this.resultWriter.write(exp.getFunction(), exp.calc(ar), ar);
+        } catch (Exception e) {
+            logger.warn("Expression calc error: ", e);
         }
     }
 
@@ -55,18 +59,22 @@ public class Facade implements Observer {
     @Override
     public void handleEvent() {
         try {
-            List<Expression> res = new ArrayList<>();
-            List<String> expressions = parser.parseExpressions();
-            for(String v : expressions) {
-                try {
-                    res.add(gen.generate(v));
-                } catch (Exception e) {
-                    logger.warn("Generate expression error: ", e);
-                }
-            }
-            calcExpressions.set(res);
+            updateExpressions();
         } catch (Exception e) {
             logger.warn("JSON parse error: ", e);
         }
+    }
+
+    private void updateExpressions() throws Exception {
+        List<Expression> res = new ArrayList<>();
+        List<String> expressions = parser.parseExpressions();
+        for(String v : expressions) {
+            try {
+                res.add(gen.generate(v));
+            } catch (Exception e) {
+                logger.warn("Generate expression error: ", e);
+            }
+        }
+        calcExpressions.set(res);
     }
 }
