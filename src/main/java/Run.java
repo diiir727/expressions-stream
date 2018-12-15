@@ -12,11 +12,18 @@ public class Run {
     private static Logger logger = LoggerFactory.getLogger(Run.class);
 
     public static void main(String[] args) {
+        if(checkArgs(args)) {
+            run(args);
+        } else {
+            printHelp();
+        }
+    }
 
-        String observableFilePath = "/home/den/expressions.json";
-        int generationPeriod = 1000;
+    private static void run(String[] args) {
+        String observableFilePath = args[0];
+        int generationPeriod = Integer.parseInt(args[1]);
+
         File fileWithExpressions = new File(observableFilePath);
-
         ReflectionClassGenerator gen = new ReflectionClassGenerator(
                 "main.generator.Expression",
                 "double",
@@ -34,6 +41,18 @@ public class Run {
             logger.error("fatal error: ", e);
         } finally {
             observable.stop();
+        }
+    }
+
+    private static void printHelp() {
+        System.out.println("usage: [expression_file_path, number_generate_duration]");
+    }
+
+    private static boolean checkArgs(String[] args){
+        try {
+            return (args.length == 2) && (Integer.parseInt(args[1]) >= 0) && new File(args[0]).isFile();
+        } catch (Exception e) {
+            return false;
         }
     }
 }
