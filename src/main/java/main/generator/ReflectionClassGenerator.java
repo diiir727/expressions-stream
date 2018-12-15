@@ -54,7 +54,7 @@ public class ReflectionClassGenerator {
             URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { parentDirectory.toURI().toURL() });
             return  (Expression) classLoader.loadClass(classname).newInstance();
         } catch (Exception e) {
-            throw new Exception("can't create interface implementation");
+            throw new Exception("can't create interface implementation", e);
         }
     }
 
