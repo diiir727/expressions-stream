@@ -1,7 +1,7 @@
 package main.observer;
 
-import main.observer.Observable;
-import main.observer.Observer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.TimerTask;
 
 public class ObservableFile implements Observable{
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private File observableFile;
     private List<Observer> observers;
     private long period;
@@ -66,7 +67,7 @@ public class ObservableFile implements Observable{
         try {
             ob.handleEvent();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn("observer can't handle event", e);
         }
     }
 }

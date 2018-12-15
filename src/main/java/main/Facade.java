@@ -3,6 +3,8 @@ package main;
 import main.generator.Expression;
 import main.generator.ReflectionClassGenerator;
 import main.observer.Observer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,34 +12,38 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Facade implements Observer {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private ReflectionClassGenerator gen;
     private Parser parser;
     private AtomicReference<List<Expression>> calcExpressions = new AtomicReference<>();
+    private Writer resultWriter;
 
-    public Facade(ReflectionClassGenerator gen, Parser parser) {
+    public Facade(ReflectionClassGenerator gen, Parser parser, Writer resultWriter) {
         this.gen = gen;
         this.parser = parser;
+        this.resultWriter = resultWriter;
         handleEvent();
     }
 
     public void run() {
-        int i = 0;
         double a1 = 4;
         double b1 = 2;
 
-//        long start = System.currentTimeMillis();
         while(true) {
             for (Expression exp: calcExpressions.get()){
                 try {
-                    exp.calc(a1,b1);
+                    this.resultWriter.write(exp.calc(a1,b1), a1, b1);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.warn("Expression calc error: ", e);
                 }
             }
-//                exp.calc(a1,b1);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                logger.warn("Thread sleep error: ", e);
+            }
+
         }
-//        long finish = System.currentTimeMillis();
-//        System.out.println(finish - start);
     }
 
     @Override
@@ -49,12 +55,12 @@ public class Facade implements Observer {
                 try {
                     res.add(gen.generate(v));
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.warn("Generate expression error: ", e);
                 }
             }
             calcExpressions.set(res);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.warn("Expression parse error: ", e);
         }
     }
 }
