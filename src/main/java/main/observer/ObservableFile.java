@@ -36,7 +36,7 @@ public class ObservableFile implements Observable{
 
     @Override
     public void notifyObservers() {
-        observers.forEach(Observer::handleEvent);
+        observers.forEach(this::notify);
     }
 
     @Override
@@ -59,6 +59,14 @@ public class ObservableFile implements Observable{
         if(tmpModification > this.lastModification){
             this.lastModification = tmpModification;
             notifyObservers();
+        }
+    }
+
+    private void notify(Observer ob) {
+        try {
+            ob.handleEvent();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

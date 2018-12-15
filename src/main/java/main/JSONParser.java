@@ -1,6 +1,10 @@
 package main;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +17,14 @@ public class JSONParser implements Parser {
     }
 
     @Override
-    public List<String> parseExpressions() {
+    public List<String> parseExpressions() throws Exception{
         List<String> res = new ArrayList<>();
-        res.add("args[0] + args[1]");
-        res.add("args[0] * args[1]");
-        res.add("args[0] - args[1]");
-        res.add("(args[0] - args[1])/2");
-
-        return res;//todo need to realise
+        String content = new String(Files.readAllBytes(dataFile.toPath()));
+        JSONObject obj = new JSONObject(content);
+        JSONArray array = obj.getJSONArray("expressions");
+        for(int i =0; i< array.length(); i++) {
+            res.add(array.getString(i));
+        }
+        return res;
     }
 }
