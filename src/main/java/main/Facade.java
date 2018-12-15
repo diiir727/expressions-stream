@@ -30,9 +30,9 @@ public class Facade implements Observer {
     public void run() {
         NumberGenerator generator = new NumberGenerator(2);
         while(true) {
+            double[] ar = generator.generate();
             for (Expression exp: calcExpressions.get()){
                 try {
-                    double[] ar = generator.generate();
                     this.resultWriter.write(exp.getFunction(), exp.calc(ar), ar);
                 } catch (Exception e) {
                     logger.warn("Expression calc error: ", e);
