@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Watch for file changes
+ */
 public class ObservableFile implements Observable{
 
     private Logger logger = LoggerFactory.getLogger(getClass());

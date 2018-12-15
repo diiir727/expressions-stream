@@ -8,6 +8,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Parse math expressions from .json file
+ */
 public class JSONParser implements Parser {
 
     private File dataFile;
