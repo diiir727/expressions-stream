@@ -14,7 +14,7 @@ public class Run {
     public static void main(String[] args) {
 
         String observableFilePath = "/home/den/expressions.json";
-        int generationPeriod = 500;
+        int generationPeriod = 1000;
         File fileWithExpressions = new File(observableFilePath);
 
         ReflectionClassGenerator gen = new ReflectionClassGenerator(

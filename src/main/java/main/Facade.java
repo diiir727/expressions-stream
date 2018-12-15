@@ -28,13 +28,12 @@ public class Facade implements Observer {
     }
 
     public void run() {
-        double a1 = 4;
-        double b1 = 2;
-
+        NumberGenerator generator = new NumberGenerator(2);
         while(true) {
             for (Expression exp: calcExpressions.get()){
                 try {
-                    this.resultWriter.write(exp.calc(a1,b1), a1, b1);
+                    double[] ar = generator.generate();
+                    this.resultWriter.write(exp.calc(ar), ar);
                 } catch (Exception e) {
                     logger.warn("Expression calc error: ", e);
                 }
