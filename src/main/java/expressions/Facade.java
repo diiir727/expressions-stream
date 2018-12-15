@@ -1,8 +1,11 @@
-package main;
+package expressions;
 
-import main.generator.Expression;
-import main.generator.ReflectionClassGenerator;
-import main.observer.Observer;
+import expressions.generator.Expression;
+import expressions.generator.ReflectionClassGenerator;
+import expressions.observer.Observer;
+import expressions.util.NumberGenerator;
+import expressions.util.Parser;
+import expressions.util.Writer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

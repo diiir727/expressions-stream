@@ -1,4 +1,4 @@
-package main;
+package expressions.util;
 
 public class NumberGenerator {
 

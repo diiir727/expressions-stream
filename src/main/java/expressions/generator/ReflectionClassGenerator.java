@@ -1,11 +1,10 @@
-package main.generator;
+package expressions.generator;
 
 import javax.tools.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ReflectionClassGenerator {

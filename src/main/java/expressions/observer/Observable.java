@@ -1,4 +1,4 @@
-package main.observer;
+package expressions.observer;
 
 public interface Observable {
 

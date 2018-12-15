@@ -1,4 +1,4 @@
-package main.generator;
+package expressions.generator;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ public class ReflectionClassGeneratorTest {
     public void testCorrectCreate() throws Exception {
         String function = "args[0] * args[1]";
         ReflectionClassGenerator generator = new ReflectionClassGenerator(
-                "main.generator.Expression",
+                "expressions.generator.Expression",
                 "double",
                 "double... args"
         );
@@ -21,7 +21,7 @@ public class ReflectionClassGeneratorTest {
     public void testNotCorrectCreate() throws Exception {
         String function = "args[0 - args[1]";
         ReflectionClassGenerator generator = new ReflectionClassGenerator(
-                "main.generator.Expression",
+                "expressions.generator.Expression",
                 "double",
                 "double... args"
         );

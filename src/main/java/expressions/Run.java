@@ -1,8 +1,11 @@
-package main;
+package expressions;
 
-import main.generator.ReflectionClassGenerator;
-import main.observer.Observable;
-import main.observer.ObservableFile;
+import expressions.generator.ReflectionClassGenerator;
+import expressions.observer.Observable;
+import expressions.observer.ObservableFile;
+import expressions.util.JSONParser;
+import expressions.util.LogWriter;
+import expressions.util.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +29,7 @@ public class Run {
 
         File fileWithExpressions = new File(observableFilePath);
         ReflectionClassGenerator gen = new ReflectionClassGenerator(
-                "main.generator.Expression",
+                "expressions.generator.Expression",
                 "double",
                 "double... args"
         );
