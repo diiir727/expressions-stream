@@ -6,7 +6,7 @@
  git clone https://github.com/diiir727/expressions-stream.git  
  cd expression-stream  
  mvn package  
- java -jar expressions-1.jar "../expressions-stream/expressions.json" 500  
+ java -jar target/expressions-1.jar "../expressions-stream/expressions.json" 500  
 
 ### Параметры
 * expression_file_path - файл с формулами в формате json,
