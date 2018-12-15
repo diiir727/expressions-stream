@@ -17,12 +17,14 @@ public class Facade implements Observer {
     private Parser parser;
     private AtomicReference<List<Expression>> calcExpressions = new AtomicReference<>();
     private Writer resultWriter;
+    private int generationPeriod;
 
-    public Facade(ReflectionClassGenerator gen, Parser parser, Writer resultWriter) {
+    public Facade(ReflectionClassGenerator gen, Parser parser, Writer resultWriter, int generationPeriod) {
         this.gen = gen;
         this.parser = parser;
         this.resultWriter = resultWriter;
-        handleEvent();
+        this.generationPeriod = generationPeriod;
+        calcExpressions.set(new ArrayList<>());
     }
 
     public void run() {
@@ -37,12 +39,17 @@ public class Facade implements Observer {
                     logger.warn("Expression calc error: ", e);
                 }
             }
+            trySleep();
+        }
+    }
+
+    private void trySleep() {
+        if(generationPeriod >= 1){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(generationPeriod);
             } catch (InterruptedException e) {
                 logger.warn("Thread sleep error: ", e);
             }
-
         }
     }
 
@@ -60,7 +67,7 @@ public class Facade implements Observer {
             }
             calcExpressions.set(res);
         } catch (Exception e) {
-            logger.warn("Expression parse error: ", e);
+            logger.warn("JSON parse error: ", e);
         }
     }
 }

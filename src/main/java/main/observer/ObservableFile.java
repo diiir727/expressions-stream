@@ -16,7 +16,7 @@ public class ObservableFile implements Observable{
     private List<Observer> observers;
     private long period;
     private Timer timer;
-    private long lastModification;
+    private long lastModification = -1;
 
     public ObservableFile(File observableFile, long period) {
         this.observableFile = observableFile;
@@ -47,7 +47,7 @@ public class ObservableFile implements Observable{
             public void run() {
                 task();
             }
-        }, 10, period);
+        }, 0, period);
     }
 
     @Override
