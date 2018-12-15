@@ -33,7 +33,8 @@ public class ReflectionClassGenerator {
 
             String classname = sourceFile.getName().split("\\.")[0];
             String sourceCode = "public class " + classname + " implements " + this.interfaces +
-                    " { public " + this.returnedType +" calc(" + this.params + ") {return "+ expression +";}}";
+                    " { public String getFunction(){return \"" + expression +"\";} "+
+                    " public " + this.returnedType +" calc(" + this.params + ") {return "+ expression +";}}";
 
             FileWriter writer = new FileWriter(sourceFile);
             writer.write(sourceCode);

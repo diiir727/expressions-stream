@@ -10,7 +10,7 @@ public class LogWriter implements Writer {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public void write(double res, double... args) {
-        logger.info(Arrays.toString(args) + " => " + res);
+    public void write(String function, double res, double... args) {
+        logger.info("(" + function + ") " + Arrays.toString(args) + " => " + res);
     }
 }
