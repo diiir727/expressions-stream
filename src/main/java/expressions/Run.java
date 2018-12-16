@@ -1,6 +1,6 @@
 package expressions;
 
-import expressions.generator.ReflectionClassGenerator;
+import expressions.generator.ReflectionExpressionGenerator;
 import expressions.observer.Observable;
 import expressions.observer.ObservableFile;
 import expressions.util.JSONParser;
@@ -28,7 +28,7 @@ public class Run {
         int generationPeriod = Integer.parseInt(args[1]);
 
         File fileWithExpressions = new File(observableFilePath);
-        ReflectionClassGenerator gen = new ReflectionClassGenerator(
+        ReflectionExpressionGenerator gen = new ReflectionExpressionGenerator(
                 "expressions.generator.Expression",
                 "double",
                 "double... args"

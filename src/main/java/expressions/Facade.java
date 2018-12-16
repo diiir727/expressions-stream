@@ -1,7 +1,7 @@
 package expressions;
 
 import expressions.generator.Expression;
-import expressions.generator.ReflectionClassGenerator;
+import expressions.generator.ExpressionGenerator;
 import expressions.observer.Observer;
 import expressions.util.NumberGenerator;
 import expressions.util.Parser;
@@ -16,14 +16,14 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Facade implements Observer {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private ReflectionClassGenerator gen;
+    private ExpressionGenerator expressionGenerator;
     private Parser parser;
     private AtomicReference<List<Expression>> calcExpressions = new AtomicReference<>();
     private Writer resultWriter;
     private int generationPeriod;
 
-    public Facade(ReflectionClassGenerator gen, Parser parser, Writer resultWriter, int generationPeriod) {
-        this.gen = gen;
+    public Facade(ExpressionGenerator expressionGenerator, Parser parser, Writer resultWriter, int generationPeriod) {
+        this.expressionGenerator = expressionGenerator;
         this.parser = parser;
         this.resultWriter = resultWriter;
         this.generationPeriod = generationPeriod;
@@ -73,7 +73,7 @@ public class Facade implements Observer {
         List<String> expressions = parser.parseExpressions();
         for(String v : expressions) {
             try {
-                res.add(gen.generate(v));
+                res.add(expressionGenerator.generate(v));
             } catch (Exception e) {
                 logger.warn("Generate expression error: ", e);
             }
