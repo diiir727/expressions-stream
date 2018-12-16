@@ -49,6 +49,7 @@ public class Run {
     }
 
     private static void printHelp() {
+        System.out.println("Not valid params.");
         System.out.println("usage: [expression_file_path, number_generate_duration]");
     }
 
